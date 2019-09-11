@@ -151,12 +151,28 @@ foreach my $mirror (@ARGV) {
 		for (1 .. 5) {
 			push @mirrors, "http://downloads.sourceforge.net/$1";
 		}
+	} elsif ($mirror =~ /^\@APACHE\/(.+)$/) {
+		push @mirrors, "http://ftp.tudelft.nl/apache/$1";
+		push @mirrors, "http://apache.openmirror.de/$1";
+		push @mirrors, "http://mirrors.ocf.berkeley.edu/apache/$1";
+		push @mirrors, "http://mirror.cc.columbia.edu/pub/software/apache/$1";
+		push @mirrors, "http://ftp.jaist.ac.jp/pub/apache/$1";
+	} elsif ($mirror =~ /^\@GITHUB\/(.+)$/) {
+		# give github a few more tries (different mirrors)
+		for (1 .. 5) {
+			push @mirrors, "https://raw.githubusercontent.com/$1";
+		}
 	} elsif ($mirror =~ /^\@GNU\/(.+)$/) {
 		push @mirrors, "http://ftpmirror.gnu.org/$1";
 		push @mirrors, "http://ftp.gnu.org/pub/gnu/$1";
 		push @mirrors, "ftp://ftp.belnet.be/mirror/ftp.gnu.org/gnu/$1";
 		push @mirrors, "ftp://ftp.mirror.nl/pub/mirror/gnu/$1";
 		push @mirrors, "http://mirror.switch.ch/ftp/mirror/gnu/$1";
+	} elsif ($mirror =~ /^\@SAVANNAH\/(.+)$/) {
+		push @mirrors, "http://download.savannah.gnu.org/releases/$1";
+		push @mirrors, "http://nongnu.uib.no/$1";
+		push @mirrors, "http://ftp.igh.cnrs.fr/pub/nongnu/$1";
+		push @mirrors, "http://download-mirror.savannah.gnu.org/releases/$1";
 	} elsif ($mirror =~ /^\@KERNEL\/(.+)$/) {
 		my @extra = ( $1 );
 		if ($filename =~ /linux-\d+\.\d+(?:\.\d+)?-rc/) {
@@ -165,8 +181,8 @@ foreach my $mirror (@ARGV) {
 			push @extra, "$extra[0]/longterm/v$1";
 		}		
 		foreach my $dir (@extra) {
-			push @mirrors, "ftp://ftp.all.kernel.org/pub/$dir";
-			push @mirrors, "http://ftp.all.kernel.org/pub/$dir";
+			push @mirrors, "https://cdn.kernel.org/pub/$dir";
+			push @mirrors, "https://www.kernel.org/pub/$dir";
 		}
     } elsif ($mirror =~ /^\@GNOME\/(.+)$/) {
 		push @mirrors, "http://ftp.gnome.org/pub/GNOME/sources/$1";
