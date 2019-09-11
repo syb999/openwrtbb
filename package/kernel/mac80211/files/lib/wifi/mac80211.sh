@@ -82,8 +82,6 @@ detect_mac80211() {
 		htmode=""
 		ht_capab=""
 
-		drdm=_$(cat /sys/class/ieee80211/${dev}/macaddress | sed 's/.[0-9A-Fa-f]:.[0-9A-Fa-f]:.[0-9A-Fa-f]:\(.[0-9A-Fa-f]\):\(.[0-9A-Fa-f]\):\(.[0-9A-Fa-f]\)/\1\2\3/g' | tr :[a-z] :[A-Z])
-
 		iw phy "$dev" info | grep -q 'Capabilities:' && htmode=HT20
 		iw phy "$dev" info | grep -q '2412 MHz' || { mode_band="a"; channel="36"; }
 
@@ -91,7 +89,7 @@ detect_mac80211() {
 		cap_5ghz=$(iw phy "$dev" info | grep -c "Band 2")
 		[ "$vht_cap" -gt 0 -a "$cap_5ghz" -gt 0 ] && {
 			mode_band="a";
-			channel="149"
+			channel="36"
 			htmode="VHT80"
 		}
 
@@ -109,16 +107,11 @@ detect_mac80211() {
 			dev_id="	option macaddr	$(cat /sys/class/ieee80211/${dev}/macaddress)"
 		fi
 
-		if [ x$mode_band == x"a" ]; then
-			ssid_sed="_wlan"
-		fi
-
 		cat <<EOF
 config wifi-device  radio$devidx
 	option type     mac80211
 	option channel  ${channel}
 	option hwmode	11${mode_band}
-	option txpower 20
 	option country CN
 	option legacy_rates 0
 $dev_id
@@ -130,9 +123,9 @@ config wifi-iface
 	option device   radio$devidx
 	option network  lan
 	option mode     ap
-	option ssid     openwrt${ssid_sed}${drdm}
+	option ssid     OpenWrt
 	option encryption none
-	option isolate 0
+
 
 EOF
 	devidx=$(($devidx + 1))
