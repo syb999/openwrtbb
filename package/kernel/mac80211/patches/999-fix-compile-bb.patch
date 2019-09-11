@@ -1,0 +1,10 @@
+--- a/compat/backport-4.12.c	2019-09-10 07:24:57.946041000 +0800
++++ b/compat/backport-4.12.c	2019-09-10 07:26:54.072581723 +0800
+@@ -226,7 +226,6 @@
+ 	/* copy this since the family might access it directly */
+ 	family->id = copy->family.id;
+ 	family->attrbuf = copy->family.attrbuf;
+-	family->mcgrp_offset = copy->family.mcgrp_offset;
+ 
+ 	mutex_lock(&copies_mutex);
+ 	list_add_tail(&copy->list, &copies_list);
