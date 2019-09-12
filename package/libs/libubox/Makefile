@@ -1,14 +1,15 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libubox
-PKG_VERSION:=2018-07-25
-PKG_RELEASE=$(PKG_SOURCE_VERSION)
+PKG_VERSION:=2019-02-27
+PKG_RELEASE=1
 
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=https://git.openwrt.org/project/libubox.git
+PKG_SOURCE_URL=https://git.openwrt.org/project/libubox.git
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
-PKG_SOURCE_VERSION:=c83a84afbef2b24f960ddeda0b5e2ab01fba6981
+PKG_SOURCE_VERSION:=eeef7b50a06bc3c3218d560b4b513b4e7b19127f
+PKG_MIRROR_HASH:=e3dd137d69848b8cf2dbc58d70452586dd4178b55977896ea3a9dedaf62c768c
 CMAKE_INSTALL:=1
 
 PKG_LICENSE:=ISC
@@ -28,7 +29,7 @@ define Package/libubox
   SECTION:=libs
   CATEGORY:=Libraries
   TITLE:=Basic utility library
-  ABI_VERSION:=$(PKG_VERSION)
+  ABI_VERSION:=20170601
   DEPENDS:=
 endef
 
@@ -107,4 +108,3 @@ $(eval $(call BuildPackage,libblobmsg-json))
 $(eval $(call BuildPackage,jshn))
 $(eval $(call BuildPackage,libjson-script))
 $(eval $(call BuildPackage,libubox-lua))
-$(eval $(call HostBuild))
