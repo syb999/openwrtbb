@@ -76,6 +76,11 @@
 				ralink,group = "ephy", "wled", "i2c";
 				ralink,function = "gpio";
 			};
+
+			pa {
+				ralink,group = "pa";
+				ralink,function = "pa";
+			};
 		};
 	};
 
@@ -112,11 +117,6 @@
 			label = "reset";
 			gpios = <&gpio0 1 1>;
 			linux,code = <0x198>;
-
-			pa {
-				ralink,group = "pa";
-				ralink,function = "pa";
-			};
 		};
 	};
 };
