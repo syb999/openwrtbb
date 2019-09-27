@@ -142,6 +142,9 @@ ramips_board_detect() {
 	*"La Fonera 2.0N")
 		name="fonera20n"
 		;;
+	*"Fast FWR200 V2")
+		name="fwr200-v2"
+		;;
 	*"Asus RT-N14U")
 		name="rt-n14u"
 		;;

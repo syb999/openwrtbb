@@ -72,6 +72,7 @@ platform_check_image() {
 	rt-g32-b1 | \
 	rt-n10-plus | \
 	rt-n14u | \
+	fwr200-v2 | \
 	rt-n15 | \
 	rt-n56u | \
 	rut5xx | \

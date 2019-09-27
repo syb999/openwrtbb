@@ -1,21 +1,12 @@
-/include/ "mt7620a.dtsi"
+/dts-v1/;
+
+/include/ "mt7620n.dtsi"
 
 / {
-	chosen {
-		bootargs = "console=ttyS0,115200";
-	};
-	
+	compatible = "fast,fwr200-v2", "ralink,mt7620n-soc";
+	model = "Fast FWR200 V2";
+
 	palmbus@10000000 {
-		sysc@0 {
-			ralink,gpiomux = "i2c", "jtag";
-			ralink,uartmux = "gpio";
-			ralink,wdtmux = <1>;
-		};
-
-		gpio0: gpio@600 {
-			status = "okay";
-		};
-
 		gpio2: gpio@660 {
 			status = "okay";
 		};
@@ -24,13 +15,13 @@
 			status = "okay";
 		};
 
-
 		spi@b00 {
 			status = "okay";
 
 			m25p80@0 {
 				#address-cells = <1>;
 				#size-cells = <1>;
+				#compatible = "mx25l6405d";
 				compatible = "w25q128";
 				reg = <0 0>;
 				linux,modalias = "m25p80", "w25q128";
@@ -70,25 +61,45 @@
 		status = "okay";
 	};
 
-	pcie@10140000 {
-		status = "okay";
+	ethernet@10100000 {
+		mtd-mac-address = <&factory 0x4>;
+		ralink,port-map = "wllll";
 	};
-	
+
 	wmac@10180000 {
 		ralink,mtd-eeprom = <&factory 0>;
 	};
 
 	pinctrl {
 		state_default: pinctrl0 {
-			gpio {
-				ralink,group = "uartf", "wled", "nd_sd";
+			default {
+				ralink,group = "ephy", "wled", "i2c";
 				ralink,function = "gpio";
 			};
+		};
+	};
 
-			pa {
-				ralink,group = "pa";
-				ralink,function = "pa";
-			};
+	gpio-leds {
+		compatible = "gpio-leds";
+		wan {
+			label = "fast:green:wan";
+			gpios = <&gpio2 0 1>;
+		};
+		lan {
+			label = "fast:green:lan";
+			gpios = <&gpio2 1 1>;
+		};
+		usb {
+			label = "fast:green:usb";
+			gpios = <&gpio2 2 1>;
+		};
+		power {
+			label = "fast:green:power";
+			gpios = <&gpio2 3 1>;
+		};
+		air {
+			label = "fast:green:air";
+			gpios = <&gpio3 0 1>;
 		};
 	};
 
@@ -99,8 +110,13 @@
 		poll-interval = <20>;
 		reset {
 			label = "reset";
-			gpios = <&gpio0 11 1>;
+			gpios = <&gpio0 1 1>;
 			linux,code = <0x198>;
+
+			pa {
+				ralink,group = "pa";
+				ralink,function = "pa";
+			};
 		};
 	};
 };
