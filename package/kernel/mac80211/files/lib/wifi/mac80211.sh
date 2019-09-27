@@ -110,9 +110,9 @@ detect_mac80211() {
 		fi
 
 		if [ x$mode_band == x"g" ]; then
-			ssid_wlan="_2.4G"
+			ssid_sed="_2.4G"
 		else
-			ssid_wlan="_5G"
+			ssid_sed="_5G"
 		fi
 
 		cat <<EOF
@@ -121,7 +121,6 @@ config wifi-device  radio$devidx
 	option channel  ${channel}
 	option hwmode	11${mode_band}
 	option country CN
-	option txpower 20
 	option legacy_rates 0
 $dev_id
 $ht_capab
@@ -134,7 +133,6 @@ config wifi-iface
 	option mode     ap
 	option ssid     openwrt${ssid_sed}${ssidnm}
 	option encryption none
-	option isolate 0
 
 
 EOF
