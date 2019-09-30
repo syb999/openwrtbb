@@ -53,7 +53,7 @@ $(call Package/dnsmasq/Default)
   TITLE += (with DNSSEC, DHCPv6, Auth DNS, IPset enabled by default)
   DEPENDS:=+PACKAGE_dnsmasq_full_dnssec:libnettle \
 	+PACKAGE_dnsmasq_full_dhcpv6:kmod-ipv6 \
-	+PACKAGE_dnsmasq_full_ipset:kmod-ipt-ipset
+	+ipset
   VARIANT:=full
 endef
 
