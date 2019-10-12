@@ -133,7 +133,11 @@ config wifi-iface
 	option mode     ap
 	option ssid     openwrt${ssid_sed}${ssidnm}
 	option encryption none
-
+	option signal_connect -60
+	option signal_stay -70
+	option signal_strikes 3
+	option signal_poll_time 5
+	option signal_drop_reason 3
 
 EOF
 	devidx=$(($devidx + 1))
