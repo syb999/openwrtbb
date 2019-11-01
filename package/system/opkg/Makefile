@@ -120,21 +120,7 @@ define Package/opkg/Default/install
 	$(INSTALL_BIN) ./files/20_migrate-feeds $(1)/etc/uci-defaults/
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/opkg-cl $(1)/bin/opkg
 ifeq ($(ARCH),mipsel)
-	ifeq ($(SUBTARGETS),rt305x)
-		$(INSTALL_DATA) ./files/mipsel/rt305x.conf $(1)/etc/opkg/customfeeds.conf
-	endif
-	ifeq ($(SUBTARGETS),rt3883)
-		$(INSTALL_DATA) ./files/mipsel/rt3883.conf $(1)/etc/opkg/customfeeds.conf
-	endif
-	ifeq ($(SUBTARGETS),mt7621)
-		$(INSTALL_DATA) ./files/mipsel/mt7621.conf $(1)/etc/opkg/customfeeds.conf
-	endif
-	ifeq ($(SUBTARGETS),mt7620a)
-		$(INSTALL_DATA) ./files/mipsel/mt7620.conf $(1)/etc/opkg/customfeeds.conf
-	endif
-	ifeq ($(SUBTARGETS),mt7620n)
-		$(INSTALL_DATA) ./files/mipsel/mt7620.conf $(1)/etc/opkg/customfeeds.conf
-	endif
+	$(INSTALL_DATA) ./files/mipsel/mt7620.conf $(1)/etc/opkg/customfeeds.conf
 endif
 ifeq ($(ARCH),mips)
 	$(INSTALL_DATA) ./files/mips/customfeeds.conf $(1)/etc/opkg/customfeeds.conf
