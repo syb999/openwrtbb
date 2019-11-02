@@ -701,8 +701,8 @@ dnsmasq_start()
 	config_get dnsmasqconfdir "$cfg" confdir "/tmp/dnsmasq.d"
 	[ ! -d "$dnsmasqconfdir" ] && mkdir -p $dnsmasqconfdir
 	xappend "--conf-dir=$dnsmasqconfdir"
-	xappend "--user=dnsmasq"
-	xappend "--group=dnsmasq"
+	xappend "--user=nobody"
+	xappend "--group=nogroup"
 	echo >> $CONFIGFILE_TMP
 
 	config_get_bool enable_tftp "$cfg" enable_tftp 0
