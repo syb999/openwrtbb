@@ -133,8 +133,10 @@ config wifi-iface
 	option mode     ap
 	option ssid     openwrt${ssid_sed}${ssidnm}
 	option encryption none
-	option signal_connect -60
-	option signal_stay -70
+	option disassoc_low_ack 0
+	option isolate 0
+	option signal_connect -90
+	option signal_stay -100
 	option signal_strikes 3
 	option signal_poll_time 5
 	option signal_drop_reason 3
