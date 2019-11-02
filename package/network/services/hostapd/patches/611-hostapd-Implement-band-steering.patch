@@ -178,8 +178,8 @@ This is a adaptation of Googles band steering
  
  static void handle_assoc(struct hostapd_data *hapd,
  			 const struct ieee80211_mgmt *mgmt, size_t len,
--			 int reassoc, struct hostapd_frame_info *fi)
-+			 int reassoc, struct hostapd_frame_info *fi, int ssi_signal)
+-			 int reassoc, int rssi)
++			 int reassoc, int rssi, int ssi_signal)
  {
  	u16 capab_info, listen_interval, seq_ctrl, fc;
  	u16 resp = WLAN_STATUS_SUCCESS, reply_res;
@@ -238,14 +238,14 @@ This is a adaptation of Googles band steering
  		break;
  	case WLAN_FC_STYPE_ASSOC_REQ:
  		wpa_printf(MSG_DEBUG, "mgmt::assoc_req");
--		handle_assoc(hapd, mgmt, len, 0, fi);
-+		handle_assoc(hapd, mgmt, len, 0, fi, fi->ssi_signal);
+-		handle_assoc(hapd, mgmt, len, 0, ssi_signal);
++		handle_assoc(hapd, mgmt, len, 0, ssi_signal, fi->ssi_signal);
  		ret = 1;
  		break;
  	case WLAN_FC_STYPE_REASSOC_REQ:
  		wpa_printf(MSG_DEBUG, "mgmt::reassoc_req");
--		handle_assoc(hapd, mgmt, len, 1, fi);
-+		handle_assoc(hapd, mgmt, len, 1, fi, fi->ssi_signal);
+-		handle_assoc(hapd, mgmt, len, 1, ssi_signal);
++		handle_assoc(hapd, mgmt, len, 1, ssi_signal, fi->ssi_signal);
  		ret = 1;
  		break;
  	case WLAN_FC_STYPE_DISASSOC:
@@ -281,9 +281,9 @@ This is a adaptation of Googles band steering
 +		write_connect_timestamp(hapd, sta->addr);
 +#endif /* CONFIG_BAND_STEERING */
 +
- 		wpa_msg(hapd->msg_ctx, MSG_INFO, AP_STA_CONNECTED "%s%s",
- 			buf, ip_addr);
- 
+ 		keyid = ap_sta_wpa_get_keyid(hapd, sta);
+ 		if (keyid) {
+ 			os_snprintf(keyid_buf, sizeof(keyid_buf),
 @@ -1237,6 +1244,10 @@ void ap_sta_set_authorized(struct hostap
  			wpa_msg_no_global(hapd->msg_ctx_parent, MSG_INFO,
  					  AP_STA_DISCONNECTED "%s", buf);
