@@ -121,6 +121,7 @@ config wifi-device  radio$devidx
 	option channel  ${channel}
 	option hwmode	11${mode_band}
 	option country CN
+	option txpower 20
 	option legacy_rates 0
 $dev_id
 $ht_capab
