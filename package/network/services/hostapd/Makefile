@@ -250,7 +250,7 @@ define Package/wpad-mini
 $(call Package/wpad/Default,$(1))
   TITLE+= (WPA-PSK only)
   VARIANT:=wpad-mini
-  DEPENDS+=+libopenssl
+  DEPENDS+=+libopenssl +libnl-tiny
 endef
 
 define Package/wpad-mini/description
