@@ -9,16 +9,9 @@ include $(TOPDIR)/rules.mk
 include $(INCLUDE_DIR)/kernel.mk
 
 PKG_NAME:=xtables-addons
-ifeq ($(strip $(call CompareKernelPatchVer,$(KERNEL_PATCHVER),ge,3.7.0)),1)
-PKG_VERSION:=2.3
+PKG_VERSION:=2.11
 PKG_RELEASE:=1
-PKG_MD5SUM:=7d942729c365a549513511061f74c3e3
-else
-PKG_VERSION:=1.45
-PKG_RELEASE:=3
-PKG_MD5SUM:=802d2f556a5e545f44e4b69937bf8490
-PATCH_DIR:=./patches-1.x
-endif
+PKG_MD5SUM:=9f3123295db81a9d1bc08dabf075d0d6
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=@SF/xtables-addons
@@ -27,7 +20,8 @@ PKG_INSTALL:=1
 PKG_BUILD_PARALLEL:=1
 PKG_CHECK_FORMAT_SECURITY:=0
 
-PKG_MAINTAINER:=Jo-Philipp Wich <jow@openwrt.org>
+PKG_MAINTAINER:=Jo-Philipp Wich <jo@mein.io>
+PKG_LICENSE:=GPL-2.0
 
 PKG_FIXUP:=autoreconf
 
@@ -45,7 +39,6 @@ endef
 
 CONFIGURE_ARGS+= \
 	--with-kbuild="$(LINUX_DIR)" \
-	--with-xtables="$(STAGING_DIR)/usr" \
 	--with-xtlibdir="/usr/lib/iptables" \
 
 define Build/Compile
@@ -99,7 +92,7 @@ define BuildTemplate
     SUBMENU:=Netfilter Extensions
     TITLE:=$(2) netfilter module
     DEPENDS:=+kmod-ipt-core $(5)
-    KCONFIG:=$(6)
+    KCONFIG:=CONFIG_NF_CONNTRACK_MARK=y
     FILES:=$(foreach mod,$(4),$(PKG_BUILD_DIR)/extensions/$(mod).$(LINUX_KMOD_SUFFIX))
     AUTOLOAD:=$(call AutoProbe,$(notdir $(4)))
   endef
@@ -131,7 +124,7 @@ endef
 
 #$(eval $(call BuildTemplate,SUFFIX,DESCRIPTION,EXTENSION,MODULE,PRIORITY,DEPENDS))
 
-$(eval $(call BuildTemplate,compat-xtables,API compatibilty layer,,compat_xtables,+IPV6:kmod-ip6tables,CONFIG_NF_CONNTRACK_MARK=y))
+$(eval $(call BuildTemplate,compat-xtables,API compatibilty layer,,compat_xtables,+IPV6:kmod-ip6tables))
 $(eval $(call BuildTemplate,rawpost,RAWPOST,,iptable_rawpost $(if $(CONFIG_IPV6),ip6table_rawpost),+kmod-ipt-compat-xtables +IPV6:kmod-ip6tables))
 $(eval $(call BuildTemplate,nathelper-rtsp,RTSP Conntrack and NAT,,rtsp/nf_conntrack_rtsp rtsp/nf_nat_rtsp,+kmod-ipt-conntrack-extra +kmod-ipt-nat))
 
@@ -155,7 +148,7 @@ $(eval $(call BuildTemplate,psd,psd,xt_psd,xt_psd,))
 $(eval $(call BuildTemplate,quota2,quota2,xt_quota2,xt_quota2,))
 $(eval $(call BuildTemplate,rawnat,RAWNAT,xt_RAWDNAT xt_RAWSNAT,xt_RAWNAT,+kmod-ipt-compat-xtables))
 $(eval $(call BuildTemplate,steal,STEAL,xt_STEAL,xt_STEAL,+kmod-ipt-compat-xtables))
-$(eval $(call BuildTemplate,sysrq,SYSRQ,xt_SYSRQ,xt_SYSRQ,+kmod-ipt-compat-xtables))
+$(eval $(call BuildTemplate,sysrq,SYSRQ,xt_SYSRQ,xt_SYSRQ,+kmod-ipt-compat-xtables +kmod-crypto-hash))
 $(eval $(call BuildTemplate,tarpit,TARPIT,xt_TARPIT,xt_TARPIT,+kmod-ipt-compat-xtables +IPV6:kmod-ipv6))
 
 $(eval $(call BuildPackage,iptaccount))
