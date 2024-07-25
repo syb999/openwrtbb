@@ -51,6 +51,7 @@ platform_check_image() {
 	freestation5 | \
 	hw550-3g | \
 	hg255d | \
+	hn1200 | \
 	hlk-rm04 | \
 	ip2202 | \
 	m3 | \

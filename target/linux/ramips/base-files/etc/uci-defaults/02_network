@@ -119,6 +119,7 @@ ramips_setup_interfaces()
 	f5d8235-v1 | \
 	f5d8235-v2 | \
 	hg255d | \
+	hn1200 | \
 	fwr200-v2 | \
 	rt-n14u | \
 	wrtnode | \

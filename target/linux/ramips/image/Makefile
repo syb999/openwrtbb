@@ -427,6 +427,9 @@ Image/Build/Profile/RT-N13U=$(call BuildFirmware/Default8M/$(1),$(1),rt-n13u,RT-
 
 Image/Build/Profile/HG255D=$(call BuildFirmware/Default16M/$(1),$(1),hg255d,HG255D)
 
+hn1200_mtd_size=7995392
+Image/Build/Profile/HN1200=$(call BuildFirmware/CustomFlash/$(1),$(1),hn1200,HN1200,$(hn1200_mtd_size))
+
 Image/Build/Profile/FREESTATION5=$(call BuildFirmware/Default8M/$(1),$(1),freestation5,FREESTATION5)
 
 Image/Build/Profile/IP2202=$(call BuildFirmware/Default8M/$(1),$(1),ip2202,IP2202)
@@ -600,6 +603,7 @@ define Image/Build/Profile/Default
 	$(call Image/Build/Profile/FONERA20N,$(1))
 	$(call Image/Build/Profile/FREESTATION5,$(1))
 	$(call Image/Build/Profile/HG255D,$(1))
+	$(call Image/Build/Profile/HN1200,$(1))
 	$(call Image/Build/Profile/HLKRM04,$(1))
 	$(call Image/Build/Profile/HW550-3G,$(1))
 	$(call Image/Build/Profile/IP2202,$(1))
