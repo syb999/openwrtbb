@@ -19,6 +19,7 @@ include $(INCLUDE_DIR)/host-build.mk
 
 HOST_CFLAGS += -I$(CURDIR)/include
 HOST_LDFLAGS += $(HOST_STATIC_LINKING)
+HOST_CPPFLAGS += -std=gnu++98
 
 define Host/Install
        $(INSTALL_BIN) \
