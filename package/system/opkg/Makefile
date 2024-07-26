@@ -119,15 +119,6 @@ define Package/opkg/Default/install
 	$(VERSION_SED) $(1)/etc/opkg/distfeeds.conf
 	$(INSTALL_BIN) ./files/20_migrate-feeds $(1)/etc/uci-defaults/
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/opkg-cl $(1)/bin/opkg
-ifeq ($(ARCH),mipsel)
-	$(INSTALL_DATA) ./files/mipsel/mt7620.conf $(1)/etc/opkg/customfeeds.conf
-endif
-ifeq ($(ARCH),mips)
-	$(INSTALL_DATA) ./files/mips/customfeeds.conf $(1)/etc/opkg/customfeeds.conf
-endif
-ifeq ($(ARCH),i386)
-	$(INSTALL_DATA) ./files/i386/customfeeds.conf $(1)/etc/opkg/customfeeds.conf
-endif
 endef
 
 define Package/opkg/install
