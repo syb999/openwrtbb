@@ -3,7 +3,7 @@
 /include/ "rt3050.dtsi"
 
 / {
-	compatible = "HN1200", "ralink,rt3052-soc";
+	compatible = "HN1200", "ralink,rt3050-soc";
 	model = "CMCC HN1200";
 
 	pinctrl {
