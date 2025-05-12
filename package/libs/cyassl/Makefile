@@ -11,9 +11,9 @@ PKG_NAME:=cyassl
 PKG_VERSION:=3.2.0
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).zip
-PKG_SOURCE_URL:=http://www.yassl.com/
-PKG_MD5SUM:=a80493c224ff86e45dc333c06d5edb88
+PKG_SOURCE:=v$(PKG_VERSION).zip
+PKG_SOURCE_URL:=https://github.com/cyassl/cyassl/archive/refs/tags
+PKG_MD5SUM:=a6aa0f0be48c7cec33ada1ca8b3d516d
 
 PKG_FIXUP:=libtool
 PKG_INSTALL:=1
