@@ -49,6 +49,15 @@
 		};
 	};
 
+	i2c {
+		compatible = "i2c-gpio";
+		// <&gpio0 0> is gpio 0 (SDA), <&gpio0 8> is gpio 8(SCL)
+		gpios = <&gpio0 0 0>, <&gpio0 8 0>;
+		i2c-gpio,delay-us = <5>;
+		#address-cells = <1>;
+		#size-cells = <0>;
+	};
+
 	ethernet@10100000 {
 		mtd-mac-address = <&factory 0x4>;
 	};
@@ -81,17 +90,6 @@
 		};
 	};
 
-	gpio-keys-polled {
-		compatible = "gpio-keys-polled";
-		#address-cells = <1>;
-		#size-cells = <0>;
-		poll-interval = <20>;
-		wps {
-			label = "reset";
-			gpios = <&gpio0 0 1>;
-			linux,code = <0x198>;
-		};
-	};
 
 	gpio_export {
 		compatible = "gpio-export";

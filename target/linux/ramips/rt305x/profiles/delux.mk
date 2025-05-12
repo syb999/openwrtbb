@@ -8,7 +8,8 @@
 define Profile/IU-01W
 	NAME:=DELUX IU-01W
 	PACKAGES:=\
-		kmod-usb-core kmod-usb-ohci kmod-usb2 kmod-ledtrig-netdev
+		kmod-usb-core kmod-usb-ohci kmod-usb2 kmod-ledtrig-netdev \
+		panel-ap-setup i2c-tools
 endef
 
 define Profile/IU-01W/Description
