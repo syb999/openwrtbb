@@ -51,9 +51,9 @@
 
 	i2c {
 		compatible = "i2c-gpio";
-		// <&gpio0 0> is gpio 0 (SDA), <&gpio0 8> is gpio 8(SCL)
-		gpios = <&gpio0 0 0>, <&gpio0 8 0>;
-		i2c-gpio,delay-us = <5>;
+
+		gpios = <&gpio0 0 0>, <&gpio0 10 0>;
+		i2c-gpio,delay-us = <10>;
 		#address-cells = <1>;
 		#size-cells = <0>;
 	};
@@ -76,34 +76,5 @@
 
 	ohci@101c1000 {
 		status = "okay";
-	};
-
-	gpio-leds {
-		compatible = "gpio-leds";
-		system {
-			label = "delux:blue:system";
-			gpios = <&gpio0 20 1>;
-		};
-		power {
-			label = "delux:red:power";
-			gpios = <&gpio0 17 1>;
-		};
-	};
-
-
-	gpio_export {
-		compatible = "gpio-export";
-		#size-cells = <0>;
-
-		usb {
-			gpio-export,name = "usb";
-			gpio-export,output = <1>;
-			gpios = <&gpio0 7 0>;
-		};
-		root_hub {
-			gpio-export,name = "root_hub";
-			gpio-export,output = <1>;
-			gpios = <&gpio0 12 0>;
-		};
 	};
 };
