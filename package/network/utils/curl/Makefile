@@ -64,13 +64,6 @@ define Package/curl/Default
   MAINTAINER:=Imre Kaloz <kaloz@openwrt.org>
 endef
 
-define Package/curl
-  $(call Package/curl/Default)
-  SUBMENU:=File Transfer
-  DEPENDS:=+libcurl
-  TITLE:=A client-side URL transfer utility
-endef
-
 define Package/libcurl
   $(call Package/curl/Default)
   SECTION:=libs
@@ -80,6 +73,12 @@ define Package/libcurl
   MENU:=1
 endef
 
+define Package/curl
+  $(call Package/curl/Default)
+  SUBMENU:=File Transfer
+  DEPENDS:=+libcurl
+  TITLE:=A client-side URL transfer utility
+endef
 
 define Package/libcurl/config
   source "$(SOURCE)/Config.in"
@@ -147,15 +146,15 @@ define Build/InstallDev
 	ln -sf $(STAGING_DIR)/usr/bin/curl-config $(2)/bin/
 endef
 
-define Package/curl/install
-	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/curl $(1)/usr/bin/
-endef
-
 define Package/libcurl/install
 	$(INSTALL_DIR) $(1)/usr/lib
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libcurl.so.* $(1)/usr/lib/
 endef
 
-$(eval $(call BuildPackage,curl))
+define Package/curl/install
+	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/curl $(1)/usr/bin/
+endef
+
 $(eval $(call BuildPackage,libcurl))
+$(eval $(call BuildPackage,curl))
