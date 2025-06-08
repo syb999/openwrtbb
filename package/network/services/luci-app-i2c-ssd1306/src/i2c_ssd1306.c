@@ -132,7 +132,9 @@ int main(int argc, char *argv[]) {
 
         write_command(&dev, 0xAE);
         sleep(config.screen_off_time);
-    }
+        ssd1306_jump(&dev, 1);
+        ssd1306_display(&dev);
+   }
 
     ssd1306_cleanup(&dev);
     return 0;

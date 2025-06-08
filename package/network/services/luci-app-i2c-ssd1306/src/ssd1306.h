@@ -58,6 +58,8 @@ void ssd1306_screen_off(SSD1306_Device *dev);
 
 void write_command(SSD1306_Device *dev, uint8_t cmd);
 
+void ssd1306_jump(SSD1306_Device *dev, int8_t offset);
+
 int process_shell_command(const char *cmd, char *output, size_t out_len);
 void replace_shell_commands(char *line, size_t line_len);
 

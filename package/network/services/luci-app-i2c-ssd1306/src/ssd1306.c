@@ -215,6 +215,30 @@ void write_command(SSD1306_Device *dev, uint8_t cmd) {
     i2c_write(dev, buf, 2);
 }
 
+void ssd1306_jump(SSD1306_Device *dev, int8_t offset) {
+    if (offset == 0) return;
+
+    uint8_t cols = abs(offset);
+
+    uint8_t *temp_buffer = malloc(cols * dev->height / 8);
+    if (!temp_buffer) {
+        perror("Failed to allocate memory for scroll buffer");
+        return;
+    }
+
+    if (offset > 0) {
+        memcpy(temp_buffer, dev->buffer + (dev->width - cols) * dev->height / 8, cols * dev->height / 8);
+        memmove(dev->buffer + cols * dev->height / 8, dev->buffer, (dev->width - cols) * dev->height / 8);
+        memcpy(dev->buffer, temp_buffer, cols * dev->height / 8);
+    } else {
+        memcpy(temp_buffer, dev->buffer, cols * dev->height / 8);
+        memmove(dev->buffer, dev->buffer + cols * dev->height / 8, (dev->width - cols) * dev->height / 8);
+        memcpy(dev->buffer + (dev->width - cols) * dev->height / 8, temp_buffer, cols * dev->height / 8);
+    }
+
+    free(temp_buffer);
+}
+
 static const uint8_t init_sequence[] = {
     0xAE,
     0xD5, 0x80,
